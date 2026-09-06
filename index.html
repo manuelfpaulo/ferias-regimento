@@ -254,6 +254,24 @@
   .btn-primario:hover { background: #ffece0; }
   .btn-primario:disabled { color: #d9b79a; border-color: #f0d9c0; cursor: not-allowed; }
 
+  .spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: conic-gradient(from 90deg, transparent, currentColor);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0);
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0);
+    animation: girar 0.7s linear infinite;
+  }
+  
+  @keyframes girar {
+    to { transform: rotate(360deg); }
+  }
+  
+  .a-processar .texto-botao { display: none; }
+  .a-processar .spinner { display: inline-block; }
+  
   .btn-secundario {
     background: #ffffff;
     color: var(--laranja);
@@ -415,7 +433,10 @@
             <div class="campo-mensagem" id="msgContactoFamiliar"></div>
           </div>
 
-          <button type="submit" class="btn-primario" id="btnEnviar">Enviar</button>
+          <button type="submit" class="btn-primario" id="btnEnviar">
+            <span class="texto-botao">Enviar</span>
+            <span class="spinner"></span>
+          </button>
           <button type="button" class="btn-secundario" id="btnIrVerificar">Ver meu envio</button>
 
           <div class="estado" id="estado"></div>
@@ -458,7 +479,10 @@
           <div class="campo-mensagem" id="msgVerNome"></div>
         </div>
 
-        <button type="button" class="btn-primario" id="btnVerificar">Verificar</button>
+        <button type="button" class="btn-primario" id="btnVerificar">
+          <span class="texto-botao">Verificar</span>
+          <span class="spinner"></span>
+        </button>
 
         <div class="resultado-verificacao" id="resultadoVerificacao"></div>
       </div>
@@ -751,6 +775,7 @@
   form.addEventListener('submit', async (evento) => {
     evento.preventDefault();
     btnEnviar.disabled = true;
+    btnEnviar.classList.add('a-processar');
 
     const dados = {
       turma: document.getElementById('turma').value,
@@ -783,6 +808,7 @@
     if (primeiroCampoInvalido) {
       primeiroCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
       btnEnviar.disabled = false;
+      btnEnviar.classList.remove('a-processar');
       return;
     }
 
@@ -794,6 +820,7 @@
       dropdownDelegacao.reset();
       dropdownProvincia.reset();
       btnEnviar.disabled = false;
+      btnEnviar.classList.remove('a-processar');
       return;
     }
 
@@ -822,6 +849,7 @@
     }
 
     btnEnviar.disabled = false;
+    btnEnviar.classList.remove('a-processar');
   });
 
   window.addEventListener('online', tentarReenviarFila);
@@ -862,7 +890,7 @@
     if (faltaAlgo) return;
 
     btnVerificar.disabled = true;
-    btnVerificar.textContent = 'A verificar...';
+    btnVerificar.classList.add('a-processar');
 
     try {
       const url = `${SCRIPT_URL}?accao=verificar&turma=${encodeURIComponent(turma)}&nome=${encodeURIComponent(nome)}`;
@@ -912,7 +940,7 @@
     }
 
     btnVerificar.disabled = false;
-    btnVerificar.textContent = 'Verificar';
+    btnVerificar.classList.remove('a-processar');
   });
 
   function mostrarResultado(tipo, mensagem) {
