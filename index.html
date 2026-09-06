@@ -792,8 +792,8 @@
       { valor: dados.nomeCompleto, elemento: document.getElementById('nomeCompleto'), msg: document.getElementById('msgNomeCompleto'), texto: 'Indique o nome completo.' },
       { valor: dados.delegacao, elemento: document.getElementById('delegacaoTrigger'), msg: document.getElementById('msgDelegacao'), texto: 'Selecione a delegação.' },
       { valor: dados.provincia, elemento: document.getElementById('provinciaTrigger'), msg: document.getElementById('msgProvincia'), texto: 'Selecione a província.' },
-      { valor: dados.contactoPessoal && contactoValido(dados.contactoPessoal) ? dados.contactoPessoal : '', elemento: document.getElementById('contactoPessoal'), msg: document.getElementById('msgContactoPessoal'), texto: dados.contactoPessoal ? 'Número inválido — use 9 dígitos começados por 8.' : 'Indique o contacto pessoal.' },
-      { valor: dados.contactoFamiliar && contactoValido(dados.contactoFamiliar) ? dados.contactoFamiliar : '', elemento: document.getElementById('contactoFamiliar'), msg: document.getElementById('msgContactoFamiliar'), texto: dados.contactoFamiliar ? 'Número inválido — use 9 dígitos começados por 8.' : 'Indique o contacto familiar.' }
+      { valor: dados.contactoPessoal && contactoValido(dados.contactoPessoal) ? dados.contactoPessoal : '', elemento: document.getElementById('contactoPessoal'), msg: document.getElementById('msgContactoPessoal'), texto: dados.contactoPessoal ? 'Número inválido' : 'Indique o contacto pessoal.' },
+      { valor: dados.contactoFamiliar && contactoValido(dados.contactoFamiliar) ? dados.contactoFamiliar : '', elemento: document.getElementById('contactoFamiliar'), msg: document.getElementById('msgContactoFamiliar'), texto: dados.contactoFamiliar ? 'Número inválido' : 'Indique o contacto familiar.' }
     ];
 
     let primeiroCampoInvalido = null;
