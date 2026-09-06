@@ -625,6 +625,7 @@
   const estadoEl = document.getElementById('estado');
   const contadorEl = document.getElementById('contadorFila');
   const btnEnviar = document.getElementById('btnEnviar');
+  const btnVerificar = document.getElementById('btnVerificar');
 
   ['nomeCompleto', 'contactoPessoal', 'contactoFamiliar'].forEach((id) => {
     const input = document.getElementById(id);
@@ -859,7 +860,6 @@
   });
 
   // --- Verificar o meu registo ---
-  const btnVerificar = document.getElementById('btnVerificar');
   const resultadoEl = document.getElementById('resultadoVerificacao');
 
   document.getElementById('verNome').addEventListener('input', () => {
