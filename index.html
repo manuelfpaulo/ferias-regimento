@@ -608,6 +608,34 @@
     input.addEventListener('input', () => limparErroCampo(input, msg));
   });
 
+  function permitirApenasLetras(id) {
+    const input = document.getElementById(id);
+    input.addEventListener('input', () => {
+      const posicao = input.selectionStart;
+      const original = input.value;
+      input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '');
+      // ajusta o cursor se algum caráter foi removido a meio do texto
+      if (input.value.length !== original.length) {
+        input.setSelectionRange(posicao - 1, posicao - 1);
+      }
+    });
+  }
+  permitirApenasLetras('nomeCompleto');
+  permitirApenasLetras('verNome');
+
+  function submeterComEnter(idCampo, botao) {
+    document.getElementById(idCampo).addEventListener('keydown', (evento) => {
+      if (evento.key === 'Enter') {
+        evento.preventDefault();
+        botao.click();
+      }
+    });
+  }
+  submeterComEnter('nomeCompleto', btnEnviar);
+  submeterComEnter('contactoPessoal', btnEnviar);
+  submeterComEnter('contactoFamiliar', btnEnviar);
+  submeterComEnter('verNome', btnVerificar);
+
   // --- Máscara e validação dos contactos (formato moçambicano: 8X XXX XXXX) ---
   function contactoValido(valor) {
     const digitos = valor.replace(/\D/g, '');
@@ -778,7 +806,7 @@
         dropdownDelegacao.reset();
         dropdownProvincia.reset();
       } else if (resultado.duplicado) {
-        mostrarEstado('erro', 'Cadete já inserido.');
+        mostrarEstado('erro', resultado.erro || 'Cadete já inserido.');
         // Não entra na fila: reenviar não vai resolver, o nome já consta na tabela.
       } else {
         mostrarEstado('erro', resultado.erro || 'Ocorreu um erro ao enviar.');
